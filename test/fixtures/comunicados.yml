@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  idComunicado: 1
+  titulo: MyString
+  corpo: MyString
+  horário: 2022-12-18 01:16:13
+  turma: one
+  curso: one
+  autor: one
+
+two:
+  idComunicado: 1
+  titulo: MyString
+  corpo: MyString
+  horário: 2022-12-18 01:16:13
+  turma: two
+  curso: two
+  autor: two

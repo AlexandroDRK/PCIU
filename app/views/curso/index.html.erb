@@ -1,0 +1,10 @@
+<h1>Curso#index</h1>
+<ul>
+  <% @cursos.each do |curso| %>
+    <li>
+      nome: <%= curso.nome %> <br>
+      descricao: <%= curso.descrição %> <br>
+    </li>
+  <% end %>
+</ul>
+<p>Find me in app/views/curso/index.html.erb</p>
