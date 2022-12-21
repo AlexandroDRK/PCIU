@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   get 'curso/index'
   get 'curso/show'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  
+  devise_for :usuario, controllers: {
+    sessions: 'usuario/sessions',
+    registrations: "usuario/registrations"
+  }
+  resource :cursos
+  root "pciu#home"
 end

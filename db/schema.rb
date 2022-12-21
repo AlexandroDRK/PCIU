@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 0) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_19_075723) do
   create_table "Comentário", primary_key: ["idComentário", "comunicado"], charset: "utf8mb3", force: :cascade do |t|
     t.integer "idComentário", null: false, auto_increment: true
     t.string "corpo", limit: 1000, null: false
@@ -65,8 +65,13 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.string "senha", limit: 32, null: false
     t.string "nome", limit: 100, null: false
     t.column "tipo", "enum('Aluno','Professor')", default: "Aluno", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.index ["email"], name: "email_UNIQUE", unique: true
     t.index ["matrícula"], name: "matrícula_UNIQUE", unique: true
+    t.index ["reset_password_token"], name: "index_Usuário_on_reset_password_token", unique: true
   end
 
   add_foreign_key "Comentário", "Comunicado", column: "comunicado", primary_key: "idComunicado", name: "fk_Comentário_Comunicado1", on_update: :cascade, on_delete: :cascade
