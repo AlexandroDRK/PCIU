@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   get 'comunicado/index'
+  get 'comunicado/new'
+  get 'criar-comunicado', to: 'comunicado#new'
   get 'curso/index'
   get 'curso/show'
 <<<<<<< HEAD

@@ -1,12 +1,14 @@
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">PCIU</a>
+    <a class="navbar-brand" href="/"><h1>PCIU</h1></a>
+    <h5>Professor</h5>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <%= link_to "Meus Comunicados", root_path, class: "nav-link" %>
+        <h6><%= link_to "Meus Comunicados", root_path, class: "nav-link" %></h6>
+        <h6><%= link_to "Criar Comunicado", criar_comunicado_path, class: "nav-link" %></h6>
       </div>
     </div>
   </div>

@@ -19,7 +19,7 @@ class ComunicadoController < ApplicationController
   end
 
   def comunicado_params
-    params.require(:comunicado).permit(:'título', :"corpo")
+    params.require(:comunicado).permit(:'título', :'corpo')
   end
   
   
