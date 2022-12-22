@@ -2,7 +2,7 @@
 
 class AddDeviseToUsuarios < ActiveRecord::Migration[7.0]
   def self.up
-    change_table :Usuário do |t|
+    change_table :Usuario do |t|
       ## Database authenticatable
       t.string :encrypted_password, null: false, default: ""
 
@@ -11,10 +11,10 @@ class AddDeviseToUsuarios < ActiveRecord::Migration[7.0]
       t.datetime :reset_password_sent_at
       ## Rememberable
       t.datetime :remember_created_at
-    #end
+    end
 
-    add_index :Usuário, :email,                unique: true
-    add_index :Usuário, :reset_password_token, unique: true
+    add_index :Usuario, :email,                unique: true
+    add_index :Usuario, :reset_password_token, unique: true
     # add_index :Usuário, :confirmation_token,   unique: true
     # add_index :Usuário, :unlock_token,         unique: true
   end

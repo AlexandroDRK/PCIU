@@ -9,6 +9,9 @@
       <div class="navbar-nav">
         <h6><%= link_to "Meus Comunicados", root_path, class: "nav-link" %></h6>
         <h6><%= link_to "Criar Comunicado", criar_comunicado_path, class: "nav-link" %></h6>
+        <% if current_usuario %>
+          <h6><%= button_to "Sair", destroy_usuario_session_path, class: "nav-link btn btn-light", method: :delete %></h6>
+        <% end %>
       </div>
     </div>
   </div>
