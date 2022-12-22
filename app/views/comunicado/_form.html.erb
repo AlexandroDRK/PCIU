@@ -15,7 +15,7 @@
         <%= form.text_area :corpo, class: "form-control" %>
     </div>
     <div class=" mb-3 form-group">
-        <%= form.label :turma_id %> <br/>
+        <h3><%= form.label :turma_id %></h3>
         <%= form.collection_select :turma_id, Turma.all, :id, :nome, class: "form-control"%>
     </div>
     <div class="mb-3">
