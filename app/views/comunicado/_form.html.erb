@@ -1,4 +1,4 @@
-<%= form_with(model: @comunicado, url: comunicado_new_path) do |form| %>
+<%= form_with(model: @comunicado, url: comunicado_path) do |form| %>
     <% if @comunicado.errors.any? %>
     <div class="alert alert-danger">
         <% @comunicado.errors.full_messages.each do |message| %>
@@ -13,6 +13,10 @@
     <div class="mb-3">
         <h3><%= form.label :corpo %></h3>
         <%= form.text_area :corpo, class: "form-control" %>
+    </div>
+    <div class=" mb-3 form-group">
+        <%= form.label :turma_id %> <br/>
+        <%= form.collection_select :turma_id, Turma.all, :id, :nome, class: "form-control"%>
     </div>
     <div class="mb-3">
         <%= form.submit "Criar", class: "btn btn-dark"%>

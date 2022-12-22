@@ -8,18 +8,28 @@ class ComunicadoController < ApplicationController
   end
 
   def create
-    @comunicado = Object.new(params[:comunicado])
+    @usuario = Usuario.find_by(matricula: current_usuario)
+    @comunicado = Comunicado.new(comunicado_params)
+    @comunicado.autor_id = @usuario.matricula
+    @comunicado.horario = Time.now
+
+    #@turma = Turma.find_by(id: @comunicado.turma_id)
+    #@comunicado.curso_id = Curso.find_by(id: @turma.curso_id)
+
     if @comunicado.save
       flash[:success] = "Comunicado criado com sucesso."
-      redirect_to @comunicado
+      redirect_to root_url
     else
+      render @comunicado.errors
       flash[:error] = "Algo deu errado."
       render 'new'
     end
   end
 
+  private
+
   def comunicado_params
-    params.require(:comunicado).permit(:'título', :'corpo')
+    params.require(:comunicado).permit(:titulo, :corpo, :horario, :turma_id, :autor_id)
   end
   
   

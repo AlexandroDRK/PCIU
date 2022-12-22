@@ -27,16 +27,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_075723) do
     t.index ["matricula_id"], name: "fk_Comentário_has_Usuário_Usuário1_idx"
   end
 
-  create_table "Comunicado", primary_key: ["id", "autor_id", "curso_id", "turma_id"], charset: "utf8mb3", force: :cascade do |t|
-    t.integer "id", null: false, auto_increment: true
+  create_table "Comunicado", id: :integer, charset: "utf8mb3", force: :cascade do |t|
     t.string "titulo", limit: 150, null: false
     t.string "corpo", limit: 3000, null: false
     t.datetime "horario", precision: nil, null: false
     t.integer "turma_id", null: false
-    t.integer "curso_id", null: false
     t.integer "autor_id", null: false
     t.index ["autor_id"], name: "fk_Comunicado_Usuário1_idx"
-    t.index ["turma_id", "curso_id"], name: "fk_Comunicado_Turma1_idx"
+    t.index ["turma_id"], name: "fk_Comunicado_Turma1_idx"
   end
 
   create_table "Curso", id: :integer, default: nil, charset: "utf8mb3", force: :cascade do |t|
@@ -44,20 +42,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_075723) do
     t.string "descricao", limit: 150
   end
 
-  create_table "Turma", primary_key: ["id", "curso_id"], charset: "utf8mb3", force: :cascade do |t|
-    t.integer "id", null: false
+  create_table "Turma", id: :integer, default: nil, charset: "utf8mb3", force: :cascade do |t|
     t.string "nome", limit: 45, null: false
     t.integer "curso_id", null: false
     t.string "periodo", limit: 45
     t.index ["curso_id"], name: "fk_Turma_Curso_idx"
   end
 
-  create_table "Turma_Usuario", primary_key: ["turma_id", "curso_id", "matricula_id"], charset: "utf8mb3", force: :cascade do |t|
+  create_table "Turma_Usuario", primary_key: ["turma_id", "matricula_id"], charset: "utf8mb3", force: :cascade do |t|
     t.integer "turma_id", null: false
     t.integer "curso_id", null: false
     t.integer "matricula_id", null: false
     t.index ["matricula_id"], name: "fk_Turma_has_Usuário_Usuário1_idx"
-    t.index ["turma_id", "curso_id"], name: "fk_Turma_has_Usuário_Turma1_idx"
   end
 
   create_table "Usuario", primary_key: "matricula", id: :integer, default: nil, charset: "utf8mb3", force: :cascade do |t|
@@ -79,11 +75,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_075723) do
   add_foreign_key "Comentario_Usuario", "Comentario", column: "comentario_id", name: "fk_Comentário_has_Usuário_Comentário1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "Comentario_Usuario", "Comentario", column: "comunicado_id", primary_key: "comunicado_id", name: "fk_Comentário_has_Usuário_Comentário1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "Comentario_Usuario", "Usuario", column: "matricula_id", primary_key: "matricula", name: "fk_Comentário_has_Usuário_Usuário1", on_update: :cascade
-  add_foreign_key "Comunicado", "Turma", column: "curso_id", primary_key: "curso_id", name: "fk_Comunicado_Turma1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "Comunicado", "Turma", column: "turma_id", name: "fk_Comunicado_Turma1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "Comunicado", "Usuario", column: "autor_id", primary_key: "matricula", name: "fk_Comunicado_Usuário1", on_update: :cascade
   add_foreign_key "Turma", "Curso", column: "curso_id", name: "fk_Turma_Curso", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "Turma_Usuario", "Turma", column: "curso_id", primary_key: "curso_id", name: "fk_Turma_has_Usuário_Turma1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "Turma_Usuario", "Turma", column: "turma_id", name: "fk_Turma_has_Usuário_Turma1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "Turma_Usuario", "Usuario", column: "matricula_id", primary_key: "matricula", name: "fk_Turma_has_Usuário_Usuário1", on_update: :cascade, on_delete: :cascade
 end
