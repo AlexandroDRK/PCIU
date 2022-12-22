@@ -20,7 +20,7 @@ class ComunicadoController < ApplicationController
       flash[:success] = "Comunicado criado com sucesso."
       redirect_to root_url
     else
-      render @comunicado.errors
+      # render @comunicado
       flash[:error] = "Algo deu errado."
       render 'new'
     end
