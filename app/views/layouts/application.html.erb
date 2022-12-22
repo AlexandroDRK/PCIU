@@ -16,6 +16,8 @@
     <header><%= render partial: "shared/navbar" %></header>
     <main class="vh-100 container">
       <br>
+      <p class="notice"><%= notice %></p> 
+      <p class="alert"><%= alert %></p> 
       <%= yield %>
     </main>
   </body>
