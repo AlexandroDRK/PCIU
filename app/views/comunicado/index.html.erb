@@ -1,0 +1,11 @@
+<div>
+    <h1 class="mb-3">Comunicados</h1>
+    <% @comunicado.each do |comunicado| %>
+        <div class="container card mb-5 border-secondary">
+            <div class="card-body">
+                <h3 class= "card-tittle"><%= comunicado.titulo %></h2>
+                <p class="card-text text-secondary"><%= comunicado.corpo %></p>
+            </div>
+        </div>
+    <% end %>
+</div>

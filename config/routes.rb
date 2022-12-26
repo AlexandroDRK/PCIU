@@ -1,11 +1,19 @@
 Rails.application.routes.draw do
-  get 'curso/index'
-  get 'curso/show'
+  root "comunicado#index"
+  
+  # get 'comunicado/index'
+  get 'comunicado/new'
+  post 'comunicado', to: 'comunicado#create'
+  get 'criar-comunicado', to: 'comunicado#new'
+  
+  #get 'curso/index'
+  #get 'curso/show'
   
   devise_for :usuario, controllers: {
     sessions: 'usuario/sessions',
     registrations: "usuario/registrations"
   }
   resource :cursos
-  root "pciu#home"
+  
+  # root "pciu#home"
 end
