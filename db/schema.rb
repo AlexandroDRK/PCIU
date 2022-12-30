@@ -19,11 +19,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_075723) do
     t.index ["comunicado_id"], name: "fk_Comentário_Comunicado1_idx"
   end
 
-  create_table "Comentario_Usuario", primary_key: ["comentario_id", "comunicado_id", "matricula_id"], charset: "utf8mb3", force: :cascade do |t|
+  create_table "Comentario_Usuario", primary_key: ["comentario_id", "matricula_id"], charset: "utf8mb3", force: :cascade do |t|
     t.integer "comentario_id", null: false
-    t.integer "comunicado_id", null: false
     t.integer "matricula_id", null: false
-    t.index ["comentario_id", "comunicado_id"], name: "fk_Comentário_has_Usuário_Comentário1_idx"
+    t.index ["comentario_id"], name: "fk_Comentário_has_Usuário_Comentário1_idx"
     t.index ["matricula_id"], name: "fk_Comentário_has_Usuário_Usuário1_idx"
   end
 
@@ -51,7 +50,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_075723) do
 
   create_table "Turma_Usuario", primary_key: ["turma_id", "matricula_id"], charset: "utf8mb3", force: :cascade do |t|
     t.integer "turma_id", null: false
-    t.integer "curso_id", null: false
     t.integer "matricula_id", null: false
     t.index ["matricula_id"], name: "fk_Turma_has_Usuário_Usuário1_idx"
   end
@@ -73,7 +71,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_075723) do
 
   add_foreign_key "Comentario", "Comunicado", column: "comunicado_id", name: "fk_Comentário_Comunicado1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "Comentario_Usuario", "Comentario", column: "comentario_id", name: "fk_Comentário_has_Usuário_Comentário1", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "Comentario_Usuario", "Comentario", column: "comunicado_id", primary_key: "comunicado_id", name: "fk_Comentário_has_Usuário_Comentário1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "Comentario_Usuario", "Usuario", column: "matricula_id", primary_key: "matricula", name: "fk_Comentário_has_Usuário_Usuário1", on_update: :cascade
   add_foreign_key "Comunicado", "Turma", column: "turma_id", name: "fk_Comunicado_Turma1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "Comunicado", "Usuario", column: "autor_id", primary_key: "matricula", name: "fk_Comunicado_Usuário1", on_update: :cascade
