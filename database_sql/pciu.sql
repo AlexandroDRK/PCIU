@@ -5,6 +5,9 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
 -- Schema PCIU
 -- -----------------------------------------------------
 
@@ -51,7 +54,6 @@ DEFAULT CHARACTER SET = utf8mb3;
 CREATE TABLE IF NOT EXISTS `PCIU`.`Usuario` (
   `matricula` INT NOT NULL,
   `email` VARCHAR(255) NOT NULL,
-  `senha` VARCHAR(32) NOT NULL,
   `nome` VARCHAR(100) NOT NULL,
   `tipo` ENUM('Aluno', 'Professor') NOT NULL DEFAULT 'Aluno',
   PRIMARY KEY (`matricula`),
