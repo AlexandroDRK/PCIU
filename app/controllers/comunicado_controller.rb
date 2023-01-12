@@ -1,6 +1,13 @@
 class ComunicadoController < ApplicationController
   def index
-    @comunicado = Comunicado.all
+    @usuario = Usuario.find_by(matricula: current_usuario)
+    
+    if @usuario.tipo == "Professor"
+      @comunicado = Comunicado.where(autor_id: @usuario.matricula)
+    else
+      @comunicado = Comunicado.all
+    end
+
   end
   
   def new
