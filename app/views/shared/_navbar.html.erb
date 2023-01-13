@@ -1,18 +1,27 @@
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="/"><h1>PCIU</h1></a>
-    <h5>Professor</h5>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <h6><%= link_to "Meus Comunicados", root_path, class: "nav-link" %></h6>
-        <h6><%= link_to "Criar Comunicado", criar_comunicado_path, class: "nav-link" %></h6>
-        <% if current_usuario %>
-          <h6><%= button_to "Sair", destroy_usuario_session_path, class: "nav-link btn btn-light", method: :delete %></h6>
-        <% end %>
+    <% if current_usuario %>
+      <% if current_usuario.tipo == 'Professor' %>
+        <h5>Professor</h5>
+      <% else %>
+        <h5>Aluno</h5>
+      <% end %>
+    <% end %>
+
+    <% if current_usuario %>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <h6><%= link_to "Meus Comunicados", root_path, class: "nav-link" %></h6>
+          <% if current_usuario.tipo == 'Professor' %>
+            <h6><%= link_to "Criar Comunicado", criar_comunicado_path, class: "nav-link" %></h6>
+          <% end %>
+            <h6><%= button_to "Sair", destroy_usuario_session_path, class: "nav-link btn btn-light", method: :delete %></h6>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </nav>

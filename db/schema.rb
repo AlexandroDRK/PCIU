@@ -56,7 +56,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_075723) do
 
   create_table "Usuario", primary_key: "matricula", id: :integer, default: nil, charset: "utf8mb3", force: :cascade do |t|
     t.string "email", null: false
-    t.string "senha", limit: 32, null: false
     t.string "nome", limit: 100, null: false
     t.column "tipo", "enum('Aluno','Professor')", default: "Aluno", null: false
     t.string "encrypted_password", default: "", null: false
