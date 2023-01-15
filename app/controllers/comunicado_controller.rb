@@ -44,7 +44,7 @@ class ComunicadoController < ApplicationController
   private
 
   def comunicado_params
-    params.require(:comunicado).permit(:titulo, :corpo, :horario, :turma_id, :autor_id)
+    params.require(:comunicado).permit(:titulo, :corpo, :horario,  :autor_id,turma_ids: [])
   end
   
   

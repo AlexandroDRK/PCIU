@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_19_075723) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_15_135804) do
   create_table "Comentario", primary_key: ["id", "comunicado_id"], charset: "utf8mb3", force: :cascade do |t|
     t.integer "id", null: false, auto_increment: true
     t.string "corpo", limit: 1000, null: false
@@ -46,6 +46,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_075723) do
     t.integer "curso_id", null: false
     t.string "periodo", limit: 45
     t.index ["curso_id"], name: "fk_Turma_Curso_idx"
+  end
+
+  create_table "Turma_Comunicado", id: false, charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "comunicado_id"
+    t.bigint "turma_id"
+    t.index ["comunicado_id"], name: "index_Turma_Comunicado_on_comunicado_id"
+    t.index ["turma_id"], name: "index_Turma_Comunicado_on_turma_id"
   end
 
   create_table "Turma_Usuario", primary_key: ["turma_id", "usuario_id"], charset: "utf8mb3", force: :cascade do |t|

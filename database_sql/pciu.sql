@@ -11,37 +11,6 @@ CREATE SCHEMA IF NOT EXISTS `PCIU` DEFAULT CHARACTER SET utf8mb3 ;
 USE `PCIU` ;
 
 -- -----------------------------------------------------
--- Table `PCIU`.`Curso`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `PCIU`.`Curso` (
-  `id` INT NOT NULL,
-  `nome` VARCHAR(90) NOT NULL,
-  `descricao` VARCHAR(150) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `PCIU`.`Turma`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `PCIU`.`Turma` (
-  `id` INT NOT NULL,
-  `nome` VARCHAR(45) NOT NULL,
-  `curso_id` INT NOT NULL,
-  `periodo` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_Turma_Curso_idx` (`curso_id` ASC) VISIBLE,
-  CONSTRAINT `fk_Turma_Curso`
-    FOREIGN KEY (`curso_id`)
-    REFERENCES `PCIU`.`Curso` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
 -- Table `PCIU`.`Usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `PCIU`.`Usuario` (
@@ -64,16 +33,9 @@ CREATE TABLE IF NOT EXISTS `PCIU`.`Comunicado` (
   `titulo` VARCHAR(150) NOT NULL,
   `corpo` VARCHAR(3000) NOT NULL,
   `horario` DATETIME NOT NULL,
-  `turma_id` INT NOT NULL,
   `autor_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Comunicado_Turma1_idx` (`turma_id` ASC) VISIBLE,
   INDEX `fk_Comunicado_Usuário1_idx` (`autor_id` ASC) VISIBLE,
-  CONSTRAINT `fk_Comunicado_Turma1`
-    FOREIGN KEY (`turma_id`)
-    REFERENCES `PCIU`.`Turma` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
   CONSTRAINT `fk_Comunicado_Usuário1`
     FOREIGN KEY (`autor_id`)
     REFERENCES `PCIU`.`Usuario` (`matricula`)
@@ -125,6 +87,37 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
+-- Table `PCIU`.`Curso`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PCIU`.`Curso` (
+  `id` INT NOT NULL,
+  `nome` VARCHAR(90) NOT NULL,
+  `descricao` VARCHAR(150) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `PCIU`.`Turma`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PCIU`.`Turma` (
+  `id` INT NOT NULL,
+  `nome` VARCHAR(45) NOT NULL,
+  `curso_id` INT NOT NULL,
+  `periodo` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Turma_Curso_idx` (`curso_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Turma_Curso`
+    FOREIGN KEY (`curso_id`)
+    REFERENCES `PCIU`.`Curso` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
 -- Table `PCIU`.`Turma_Usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `PCIU`.`Turma_Usuario` (
@@ -142,6 +135,29 @@ CREATE TABLE IF NOT EXISTS `PCIU`.`Turma_Usuario` (
     REFERENCES `PCIU`.`Usuario` (`matricula`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `PCIU`.`Turma_Comunicado`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PCIU`.`Turma_Comunicado` (
+  `turma_id` INT NOT NULL,
+  `comunicado_id` INT NOT NULL,
+  PRIMARY KEY (`turma_id`, `comunicado_id`),
+  INDEX `fk_Comunicado_has_Turma_Turma1_idx` (`turma_id` ASC) VISIBLE,
+  INDEX `fk_Comunicado_has_Turma_Comunicado1_idx` (`comunicado_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Comunicado_has_Turma_Comunicado1`
+    FOREIGN KEY (`comunicado_id`)
+    REFERENCES `PCIU`.`Comunicado` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Comunicado_has_Turma_Turma1`
+    FOREIGN KEY (`turma_id`)
+    REFERENCES `PCIU`.`Turma` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
