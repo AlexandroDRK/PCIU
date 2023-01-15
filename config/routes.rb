@@ -3,10 +3,10 @@ Rails.application.routes.draw do
   
   # get 'comunicado/index'
   get 'comunicado/new'
+  #get 'comunicado'
   post 'comunicado', to: 'comunicado#create'
   get 'criar-comunicado', to: 'comunicado#new'
-  #get 'curso/index'
-  #get 'curso/show'
+  delete 'excluir_comunicado', to: 'comunicado#destroy'
   
   devise_for :usuario
   

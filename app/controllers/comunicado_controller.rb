@@ -1,11 +1,12 @@
 class ComunicadoController < ApplicationController
+  #before_action :authenticate_usuario!, only: [:destroy]
   def index
     @usuario = Usuario.find_by(matricula: current_usuario)
     
     if @usuario.tipo == "Professor"
-      @comunicado = Comunicado.where(autor_id: @usuario.matricula)
+      @comunicados = Comunicado.where(autor_id: @usuario.matricula)
     else
-      @comunicado = Comunicado.all
+      @comunicados = Comunicado.all
     end
 
   end
@@ -16,21 +17,28 @@ class ComunicadoController < ApplicationController
 
   def create
     @usuario = Usuario.find_by(matricula: current_usuario)
-    @comunicado = Comunicado.new(comunicado_params)
-    @comunicado.autor_id = @usuario.matricula
-    @comunicado.horario = Time.now
+    if @usuario.tipo == "Professor" 
+      @usuario = Usuario.find_by(matricula: current_usuario)
+      @comunicado = Comunicado.new(comunicado_params)
+      @comunicado.autor_id = @usuario.matricula
+      @comunicado.horario = Time.now
 
-    #@turma = Turma.find_by(id: @comunicado.turma_id)
-    #@comunicado.curso_id = Curso.find_by(id: @turma.curso_id)
-
-    if @comunicado.save
-      flash[:success] = "Comunicado criado com sucesso."
-      redirect_to root_url
-    else
-      # render @comunicado
-      flash[:error] = "Algo deu errado."
-      render 'new'
+      if @comunicado.save
+        flash[:success] = "Comunicado criado com sucesso."
+        redirect_to root_url
+      else
+        # render @comunicado
+        flash[:error] = "Algo deu errado."
+        render 'new'
+      end
     end
+  end
+
+  def destroy
+    @comunicado = Comunicado.find(params[:id])
+    @comunicado.destroy
+    flash[:notice] = "Comunicado excluido com sucesso."
+    redirect_to root_url
   end
 
   private

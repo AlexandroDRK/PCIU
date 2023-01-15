@@ -24,7 +24,7 @@
             </div>
             <div class=" mb-3 form-group">
                 <h5><%= form.label :turma_id, "Para qual turma?" %></h5>
-                <%= form.collection_select :turma_id, Turma.all, :id, :nome, class: "form-control"%>
+                <%= form.collection_select :turma_id, current_usuario.turmas, :id, :nome, class: "form-control"%>
             </div>
             <div class="mb-3 btn-lg">
                 <%= form.submit "Criar", class: "btn btn-dark"%>
