@@ -1,18 +1,18 @@
-<div class="row">
+<div class="container row">
     <div class='col-sm-4 text-center'>
-        <h2><%= link_to "Meus Comunicados", root_path, class: "nav-link mb-3 bg-secondary bg-opacity-10 border border-secondary border-opacity-10 rounded-pill p-3 m-2" %></h2>
+        <h4><%= link_to "Meus Comunicados", root_path, class: "nav-link mb-3 bg-secondary bg-opacity-10 border border-secondary border-opacity-10 rounded-pill p-3 m-2" %></h4>
         <% if current_usuario.tipo == 'Professor' %>
-            <h2><%= link_to "Criar Comunicado", criar_comunicado_path, class: "nav-link mb-3 border border-secondary border-opacity-10 rounded-pill p-3 m-2" %></h2>
+            <h4><%= link_to "Criar Comunicado", criar_comunicado_path, class: "nav-link mb-3 border border-secondary border-opacity-10 rounded-pill p-3 m-2" %></h4>
         <% end %>
     </div>
     <div class='col-sm-8'>
         <% @comunicados.each do |comunicado| %>
-            <div class="container card mb-5 border-secondary">
+            <div class="container card mb-5 border border-darker-subtle border-2 rounded-3">
                 <div class="card-body">
-                    <h3 class= "card-tittle"><%= comunicado.titulo %></h3>
-                    <p class="card-text text-secondary"><%= comunicado.corpo %></p>
-                     <% if current_usuario.tipo == 'Professor' %>
-                        <%= button_to  "Excluir comunicado",excluir_comunicado_path(id: comunicado.id), method: :delete, class:"btn btn-default"%>
+                    <h3 class= "card-tittle fw-bold"><%= comunicado.titulo %></h3>
+                    <p class="card-text text-dark"><%= comunicado.corpo %></p>
+                    <% if current_usuario.tipo == 'Professor' %>
+                        <span class="text-end"><%= button_to  "Excluir?",excluir_comunicado_path(id: comunicado.id), method: :delete, class:"btn btn-default fw-semibold text-danger"%></span>
                     <% end %>
                 </div>
             </div>
