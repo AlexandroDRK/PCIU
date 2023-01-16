@@ -52,36 +52,20 @@ CREATE TABLE IF NOT EXISTS `PCIU`.`Comentario` (
   `corpo` VARCHAR(1000) NOT NULL,
   `horario` DATETIME NOT NULL,
   `comunicado_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `comunicado_id`),
+  `usuario_id` INT NOT NULL,
+  PRIMARY KEY (`id`, `comunicado_id`, `usuario_id`),
   INDEX `fk_Comentário_Comunicado1_idx` (`comunicado_id` ASC) VISIBLE,
+  INDEX `fk_Comentario_Usuario1_idx` (`usuario_id` ASC) VISIBLE,
   CONSTRAINT `fk_Comentário_Comunicado1`
     FOREIGN KEY (`comunicado_id`)
     REFERENCES `PCIU`.`Comunicado` (`id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `PCIU`.`Comentario_Usuario`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `PCIU`.`Comentario_Usuario` (
-  `comentario_id` INT NOT NULL,
-  `usuario_id` INT NOT NULL,
-  PRIMARY KEY (`comentario_id`, `usuario_id`),
-  INDEX `fk_Comentário_has_Usuário_Usuário1_idx` (`usuario_id` ASC) VISIBLE,
-  INDEX `fk_Comentário_has_Usuário_Comentário1_idx` (`comentario_id` ASC) VISIBLE,
-  CONSTRAINT `fk_Comentário_has_Usuário_Comentário1`
-    FOREIGN KEY (`comentario_id`)
-    REFERENCES `PCIU`.`Comentario` (`id`)
-    ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_Comentário_has_Usuário_Usuário1`
+  CONSTRAINT `fk_Comentario_Usuario1`
     FOREIGN KEY (`usuario_id`)
     REFERENCES `PCIU`.`Usuario` (`matricula`)
-    ON DELETE RESTRICT
-    ON UPDATE CASCADE)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 

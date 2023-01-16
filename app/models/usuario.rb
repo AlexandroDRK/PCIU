@@ -10,5 +10,5 @@ class Usuario < ApplicationRecord
   #associations:
   has_many :comunicados
   has_and_belongs_to_many :turmas, join_table: :Turma_Usuario
-  has_and_belongs_to_many :comentarios, join_table: :Comentario_Usuario
+  has_many :comentarios
 end
