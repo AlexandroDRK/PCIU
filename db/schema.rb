@@ -11,19 +11,14 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_12_19_075723) do
-  create_table "Comentario", primary_key: ["id", "comunicado_id"], charset: "utf8mb3", force: :cascade do |t|
+  create_table "Comentario", primary_key: ["id", "comunicado_id", "usuario_id"], charset: "utf8mb3", force: :cascade do |t|
     t.integer "id", null: false, auto_increment: true
     t.string "corpo", limit: 1000, null: false
     t.datetime "horario", precision: nil, null: false
     t.integer "comunicado_id", null: false
-    t.index ["comunicado_id"], name: "fk_Comentário_Comunicado1_idx"
-  end
-
-  create_table "Comentario_Usuario", primary_key: ["comentario_id", "usuario_id"], charset: "utf8mb3", force: :cascade do |t|
-    t.integer "comentario_id", null: false
     t.integer "usuario_id", null: false
-    t.index ["comentario_id"], name: "fk_Comentário_has_Usuário_Comentário1_idx"
-    t.index ["usuario_id"], name: "fk_Comentário_has_Usuário_Usuário1_idx"
+    t.index ["comunicado_id"], name: "fk_Comentário_Comunicado1_idx"
+    t.index ["usuario_id"], name: "fk_Comentario_Usuario1_idx"
   end
 
   create_table "Comunicado", id: :integer, charset: "utf8mb3", force: :cascade do |t|
@@ -74,8 +69,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_075723) do
   end
 
   add_foreign_key "Comentario", "Comunicado", column: "comunicado_id", name: "fk_Comentário_Comunicado1", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "Comentario_Usuario", "Comentario", column: "comentario_id", name: "fk_Comentário_has_Usuário_Comentário1", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "Comentario_Usuario", "Usuario", column: "usuario_id", primary_key: "matricula", name: "fk_Comentário_has_Usuário_Usuário1", on_update: :cascade
+  add_foreign_key "Comentario", "Usuario", column: "usuario_id", primary_key: "matricula", name: "fk_Comentario_Usuario1"
   add_foreign_key "Comunicado", "Usuario", column: "autor_id", primary_key: "matricula", name: "fk_Comunicado_Usuário1", on_update: :cascade
   add_foreign_key "Turma", "Curso", column: "curso_id", name: "fk_Turma_Curso", on_update: :cascade, on_delete: :cascade
   add_foreign_key "Turma_Comunicado", "Comunicado", column: "comunicado_id", name: "fk_Comunicado_has_Turma_Comunicado1"

@@ -1,12 +1,11 @@
 class ComunicadoController < ApplicationController
-  #before_action :authenticate_usuario!, only: [:destroy]
   def index
     @usuario = Usuario.find_by(matricula: current_usuario)
     
     if @usuario.tipo == "Professor"
-      @comunicados = Comunicado.where(autor_id: @usuario.matricula)
+      @comunicados = Comunicado.where(autor_id: @usuario.matricula)   
     else
-      @comunicados = Comunicado.all
+      @comunicados = Comunicado.joins(:turma).where(turma: {id: @usuario.turmas.ids}).all
     end
 
   end
