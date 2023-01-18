@@ -9,6 +9,10 @@ class ComunicadoController < ApplicationController
     end
 
   end
+
+  def show
+    @comunicado = Comunicado.find(params[:id])
+  end
   
   def new
     @comunicado = Comunicado.new

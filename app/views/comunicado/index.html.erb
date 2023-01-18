@@ -14,6 +14,7 @@
                     <% if current_usuario.tipo == 'Professor' %>
                         <span class="text-end"><%= button_to  "Excluir?",excluir_comunicado_path(id: comunicado.id), method: :delete, class:"btn btn-default fw-semibold text-danger"%></span>
                     <% end %>
+                    <%= link_to 'Mostrar mais', comunicado_path(id: comunicado.id) %>
                 </div>
             </div>
         <% end %>
