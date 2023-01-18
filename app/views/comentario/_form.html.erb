@@ -1,11 +1,16 @@
-<%= form_for @comunicado.comentarios.new, url: comunicado_comentario_path(id: @comunicado.comentarios.ids, comunicado_id: @comunicado.id) do |form| %>
-    <div class="field">
-        <%= form.label :seu_comentário %><br>
-        <%= form.text_field :corpo, class: "form-control" %>
-        <%= form.hidden_field :comunicado_id, value: @comunicado.id %>
-        <br>
+<%= form_with(model: @comentario, url: novo_comentario_path) do |form| %>
+    <% if @comentario.errors.any? %>
+        <div class="alert alert-danger">
+        <% @comentario.errors.full_messages.each do |message| %>
+        <div><%= message %></div>
+    <% end %>
     </div>
-    <div class="mb-1">
-        <%= form.submit "Enviar", class: "btn btn-dark"%>
+    <% end %>
+    <div class="mb-3">
+        <%= form.text_field :corpo, class: "form-control border border-2", placeholder: "Adicionar comentário..."%>
+    </div>
+    <%= form.hidden_field :comunicado_id %>
+    <div class="mb-3 btn-lg">
+        <%= form.submit "Enviar", class: "btn btn-dark px-5 fw-bold"%>
     </div>
 <% end %>

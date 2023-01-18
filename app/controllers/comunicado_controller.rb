@@ -12,6 +12,8 @@ class ComunicadoController < ApplicationController
 
   def show
     @comunicado = Comunicado.find(params[:id])
+    @comentarios = @comunicado.comentarios.all
+    @comentario = @comunicado.comentarios.build
   end
   
   def new

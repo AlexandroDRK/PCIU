@@ -7,7 +7,7 @@
     </div>
     <div class="col-sm-8">
         <h1 class="mb-3 fw-bold">Novo Comunicado</h1>
-        <%= form_with(model: @comunicado, url: comunicado_path) do |form| %>
+        <%= form_with(model: @comunicado, url: novo_comunicado_path) do |form| %>
             <% if @comunicado.errors.any? %>
             <div class="alert alert-danger">
                 <% @comunicado.errors.full_messages.each do |message| %>

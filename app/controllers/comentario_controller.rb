@@ -20,18 +20,25 @@ class ComentarioController < ApplicationController
 
   def create
     @usuario = Usuario.find_by(matricula: current_usuario)
-    @comunicado = Comunicado.find(params[:comunicado_id])
-    @comentario = @comunicado.comentarios.create(comentario_params)
+    @comentario = Comentario.new(comentario_params)
     @comentario.horario = Time.now
+    @comentario.usuario_id = @usuario.id
 
     if @comentario.save
       flash[:success] = "Comentário enviado com sucesso."
-      redirect_to comunicado_path(@comunicado)
+      redirect_to comunicado_path(id: @comentario.comunicado_id)
     else
       # render @comunicado
       flash[:error] = "Algo deu errado."
       render 'new'
     end
+  end
+
+  def destroy
+    @comentario = Comentario.find(params[:id])
+    @comentario.destroy
+    flash[:notice] = "Comentário excluido com sucesso."
+    redirect_to comunicado_path(@comentario.comunicado_id)
   end
 
   private

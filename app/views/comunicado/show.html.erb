@@ -1,3 +1,20 @@
-<%= link_to 'Voltar', root_path %>
-<%= render 'comunicado/comunicado' %>
-<%= render partial: 'comentario/form', locals: { comentario: @comentario } %>
+<div class="container card mb-5 border border-darker-subtle border-2 rounded-3">
+    <div class="card-body">
+        <h3 class= "card-tittle fw-bold"><%= @comunicado.titulo %></h3>
+        <p class="card-text text-dark"><%= @comunicado.corpo %></p>
+    </div>
+</div>
+
+<div class="container">
+    <%= render partial: 'comentario/form', locals: { comentario: @comentario } %>
+    <% @comentarios.each do |comentario| %>
+        <div>
+            <%= comentario.corpo %>
+            <% u = Usuario.find(comentario.usuario_id)%>
+            <span class="fw-bold"><%= u.nome %></span>
+            <% if current_usuario.id == comentario.usuario_id %>
+                <span><%= button_to "Excluir?", excluir_comentario_path(id: comentario.id), method: :delete, class:"btn btn-default fw-semibold text-secondary"%></span>
+            <% end %>
+        </div>
+    <% end %>
+</div>
