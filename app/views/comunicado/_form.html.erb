@@ -1,8 +1,8 @@
 <div class="row container">
     <div class="col-sm-4 text-center">
-    <h4 ><%= link_to "Meus Comunicados", root_path, class: "nav-link mb-3 border border-secondary border-opacity-10 rounded-pill p-3 m-2" %></h4>
+    <h4 ><%= link_to "Meus Comunicados", root_path, class: "nav-link mb-3 border border-2 border-dark border-opacity-10 rounded-pill p-3 m-2" %></h4>
     <% if current_usuario.tipo == 'Professor' %>
-        <h4><%= link_to "Criar Comunicado", criar_comunicado_path, class: "nav-link mb-3 bg-secondary bg-opacity-10 border border-secondary border-opacity-10 rounded-pill p-3 m-2"%></h4>
+        <h4><%= link_to "Criar Comunicado", criar_comunicado_path, class: "nav-link mb-3 bg-dark bg-opacity-10 rounded-pill p-3 m-2"%></h4>
     <% end %>
     </div>
     <div class="col-sm-8">
@@ -15,19 +15,22 @@
                 <% end %>
             </div>
             <% end %>
-            <div class="mb-3">
+            <div class="mb-4">
                 <%= form.text_field :titulo, class: "form-control border border-2", placeholder: "Insira um título..." %>
             </div>
-            <div class="mb-3">
-                <h5><%= form.label :corpo, "O que deseja comunicar?" %></h5>
+            <div class="mb-4">
+                <h5><%= form.label :corpo, "O que deseja comunicar?", class: 'mb-2' %></h5>
                 <%= form.text_area :corpo, class: "form-control border border-2", size: "70x8" %>
             </div>
             <div class=" mb-3 form-group">
-                <h5><%= form.label "Para qual turma?" %></h5>
+                <h5><%= form.label "Para qual turma?", class: 'mb-2' %></h5>
                 <%= form.collection_check_boxes(:turma_ids, current_usuario.turmas, :id, :nome,include_hidden: false) do |b|%>
-                    <div class="fw-semibold"><%= b.check_box %>  <%= b.label%></div>
+                    <div class="fw-semibold mb-2">
+                        <%= b.check_box %>  <%= b.label%>
+                    </div>
                 <% end %>
             </div>
+            <br>
             <div class="mb-3 btn-lg">
                 <%= form.submit "Criar", class: "btn btn-dark px-5 fw-bold"%>
             </div>
