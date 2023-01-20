@@ -1,0 +1,9 @@
+<div dom_id @comunicado %>
+    <div class="container card mb-5 border border-darker-subtle border-2 rounded-3">
+        <div class="card-body">
+            <h3 class= "card-tittle fw-bold"><%= @comunicado.titulo %></h3>
+            <p class="card-text text-dark"><%= @comunicado.corpo %></p>
+        </div>
+    </div>
+    <%= render 'comentario/index', comentario: @comunicado.comentarios %>
+</div>

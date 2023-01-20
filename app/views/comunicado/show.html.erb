@@ -1,0 +1,40 @@
+<div class="row container">
+    <div class="col-sm-4 text-center">
+    <h4 ><%= link_to "Meus Comunicados", root_path, class: "nav-link mb-3 border border-dark border-opacity-50 rounded-pill p-3 m-2" %></h4>
+    <% if current_usuario.tipo == 'Professor' %>
+        <h4><%= link_to "Criar Comunicado", criar_comunicado_path, class: "nav-link mb-3 border border-dark border-opacity-50 rounded-pill p-3 m-2"%></h4>
+    <% end %>
+    </div>
+
+    <div class="col-sm-6">
+        <h1 class= "fw-bold mb-4"><%= @comunicado.titulo %></h1>
+        <div class="container card border border-dark border-opacity-50 p-3 mb-5">
+            <div class="card-body">
+                <p class="card-text text-dark"><%= @comunicado.corpo %></p>
+            </div>
+        </div>
+        <div class="container">
+            <%= render partial: 'comentario/form', locals: { comentario: @comentario } %>
+            <% @comentarios.each do |comentario| %>
+                <div class='row g-3 align-items-start border-bottom pb-3 border-dark border-opacity-50'>
+                    <% u = Usuario.find(comentario.usuario_id)%>
+                    <% if current_usuario.id == comentario.usuario_id %>
+                        <span class="fw-bolder col-2 pt-1"><%= u.nome %></span>
+                        <span  class="col-8 pt-1"><%= comentario.corpo %></span>
+                        <span class='col-2'><%= button_to "Excluir?", excluir_comentario_path(id: comentario.id), method: :delete, class:"btn btn-default fw-semibold text-danger mx-2"%></span>
+                    <% else %>
+                        <span class="fw-semibold col-2 pt-1 text-secondary"><%= u.nome %></span>
+                        <span  class="col-8 pt-1 text-secondary"><%= comentario.corpo %></span>
+                    <% end %>
+                </div>
+                <br>
+            <% end %>
+        </div>
+    </div>
+    <div class="col-sm-2 text-center">
+        <br><br><br>
+        <h5 class='bg-dark text-white rounded-pill p-2 fw-bold'><%= Usuario.find(@comunicado.autor_id).nome%></h5>
+        <p class='fw-semibold'>Autor</p>
+    </div>
+</div>
+<br>

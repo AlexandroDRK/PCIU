@@ -1,6 +1,19 @@
 class ComunicadoController < ApplicationController
   def index
-    @comunicado = Comunicado.all
+    @usuario = Usuario.find_by(matricula: current_usuario)
+    
+    if @usuario.tipo == "Professor"
+      @comunicados = Comunicado.where(autor_id: @usuario.matricula)   
+    else
+      @comunicados = Comunicado.joins(:turma).where(turma: {id: @usuario.turmas.ids}).all
+    end
+
+  end
+
+  def show
+    @comunicado = Comunicado.find(params[:id])
+    @comentarios = @comunicado.comentarios.all
+    @comentario = @comunicado.comentarios.build
   end
   
   def new
@@ -9,27 +22,34 @@ class ComunicadoController < ApplicationController
 
   def create
     @usuario = Usuario.find_by(matricula: current_usuario)
-    @comunicado = Comunicado.new(comunicado_params)
-    @comunicado.autor_id = @usuario.matricula
-    @comunicado.horario = Time.now
+    if @usuario.tipo == "Professor" 
+      @usuario = Usuario.find_by(matricula: current_usuario)
+      @comunicado = Comunicado.new(comunicado_params)
+      @comunicado.autor_id = @usuario.matricula
+      @comunicado.horario = Time.now
 
-    #@turma = Turma.find_by(id: @comunicado.turma_id)
-    #@comunicado.curso_id = Curso.find_by(id: @turma.curso_id)
-
-    if @comunicado.save
-      flash[:success] = "Comunicado criado com sucesso."
-      redirect_to root_url
-    else
-      # render @comunicado
-      flash[:error] = "Algo deu errado."
-      render 'new'
+      if @comunicado.save
+        flash[:success] = "Comunicado criado com sucesso."
+        redirect_to root_url
+      else
+        # render @comunicado
+        flash[:error] = "Algo deu errado."
+        render 'new'
+      end
     end
+  end
+
+  def destroy
+    @comunicado = Comunicado.find(params[:id])
+    @comunicado.destroy
+    flash[:notice] = "Comunicado excluido com sucesso."
+    redirect_to root_url
   end
 
   private
 
   def comunicado_params
-    params.require(:comunicado).permit(:titulo, :corpo, :horario, :turma_id, :autor_id)
+    params.require(:comunicado).permit(:titulo, :corpo, :horario,  :autor_id,turma_ids: [])
   end
   
   

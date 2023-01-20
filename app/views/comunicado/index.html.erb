@@ -1,11 +1,37 @@
-<div>
-    <h1 class="mb-3">Comunicados</h1>
-    <% @comunicado.each do |comunicado| %>
-        <div class="container card mb-5 border-secondary">
-            <div class="card-body">
-                <h3 class= "card-tittle"><%= comunicado.titulo %></h2>
-                <p class="card-text text-secondary"><%= comunicado.corpo %></p>
+<div class="container row">
+    <div class='col-sm-4 text-center'>
+        <h4><%= link_to "Meus Comunicados", root_path, class: "nav-link text-white mb-3 bg-dark rounded-pill p-3 m-2 shadow-sm" %></h4>
+        <% if current_usuario.tipo == 'Professor' %>
+            <h4><%= link_to "Criar Comunicado", criar_comunicado_path, class: "nav-link mb-3 border border-dark border-opacity-50 rounded-pill p-3 m-2" %></h4>
+        <% end %>
+    </div>
+    <div class='col-sm-8'>
+        <% @comunicados.each do |comunicado| %>
+            <div class="mb-5">
+                <a href="<%= comunicado_path(id: comunicado.id) %>" class='text-decoration-none text-dark'>
+                    <div class="container card border border-dark border-opacity-50 p-3">
+                        <div class="card-body">
+                            <h3 class= "card-tittle fw-bold"><%= comunicado.titulo %></h3>
+                            <p class="card-text text-dark"><%= comunicado.corpo %></p>
+                            
+                        </div>
+                    </div>
+                </a>
+                <div class="fw-semibold row mt-4 justify-content-between px-4">
+                    <% turma =Turma.joins(:comunicado).where(comunicado: {id: comunicado.id}).pluck(:nome)%>
+                    <div class="col-auto mt-2">
+                        <% turma.each do |t| %>
+                            <span class="bg-dark text-white px-3 py-2 rounded-pill"><%= t %></span>
+                        <% end %>
+                    </div>
+                    <% if current_usuario.tipo == 'Professor' %>
+                        <div class="col-auto">
+                            <%= button_to  "Excluir?",excluir_comunicado_path(id: comunicado.id), method: :delete, class:"btn btn-default text-danger text-end fw-semibold"%>
+                        </div>
+                    <% end %>
+                </div>
             </div>
-        </div>
-    <% end %>
+            <brs>
+        <% end %>
+    </div>
 </div>

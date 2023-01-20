@@ -1,0 +1,19 @@
+<%= form_with(model: @comentario, url: novo_comentario_path) do |form| %>
+    <% if @comentario.errors.any? %>
+        <div class="alert alert-danger">
+        <% @comentario.errors.full_messages.each do |message| %>
+        <div><%= message %></div>
+    <% end %>
+    </div>
+    <% end %>
+    <div class="row g-3">
+        <div class="mb-3 col-10">
+            <%= form.text_field :corpo, class: "form-control border border-dark border-opacity-50 rounded-pill ps-4", placeholder: "Adicionar comentário..."%>
+        </div>
+        <%= form.hidden_field :comunicado_id %>
+        <div class="mb-3 btn-sm col-auto">
+            <%= form.submit "Enviar", class: "btn btn-dark px-3 fw-bold rounded-pill"%>
+        </div>
+    </div>
+    <br>
+<% end %>

@@ -11,6 +11,66 @@ CREATE SCHEMA IF NOT EXISTS `PCIU` DEFAULT CHARACTER SET utf8mb3 ;
 USE `PCIU` ;
 
 -- -----------------------------------------------------
+-- Table `PCIU`.`Usuario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PCIU`.`Usuario` (
+  `matricula` INT NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `nome` VARCHAR(100) NOT NULL,
+  `tipo` ENUM('Aluno', 'Professor') NOT NULL DEFAULT 'Aluno',
+  PRIMARY KEY (`matricula`),
+  UNIQUE INDEX `matrícula_UNIQUE` (`matricula` ASC) VISIBLE,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `PCIU`.`Comunicado`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PCIU`.`Comunicado` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `titulo` VARCHAR(150) NOT NULL,
+  `corpo` VARCHAR(3000) NOT NULL,
+  `horario` DATETIME NOT NULL,
+  `autor_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Comunicado_Usuário1_idx` (`autor_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Comunicado_Usuário1`
+    FOREIGN KEY (`autor_id`)
+    REFERENCES `PCIU`.`Usuario` (`matricula`)
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `PCIU`.`Comentario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PCIU`.`Comentario` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `corpo` VARCHAR(1000) NOT NULL,
+  `horario` DATETIME NOT NULL,
+  `comunicado_id` INT NOT NULL,
+  `usuario_id` INT NOT NULL,
+  PRIMARY KEY (`id`, `comunicado_id`, `usuario_id`),
+  INDEX `fk_Comentário_Comunicado1_idx` (`comunicado_id` ASC) VISIBLE,
+  INDEX `fk_Comentario_Usuario1_idx` (`usuario_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Comentário_Comunicado1`
+    FOREIGN KEY (`comunicado_id`)
+    REFERENCES `PCIU`.`Comunicado` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_Comentario_Usuario1`
+    FOREIGN KEY (`usuario_id`)
+    REFERENCES `PCIU`.`Usuario` (`matricula`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
 -- Table `PCIU`.`Curso`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `PCIU`.`Curso` (
@@ -42,89 +102,6 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `PCIU`.`Usuario`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `PCIU`.`Usuario` (
-  `matricula` INT NOT NULL,
-  `email` VARCHAR(255) NOT NULL,
-  `nome` VARCHAR(100) NOT NULL,
-  `tipo` ENUM('Aluno', 'Professor') NOT NULL DEFAULT 'Aluno',
-  PRIMARY KEY (`matricula`),
-  UNIQUE INDEX `matrícula_UNIQUE` (`matricula` ASC) VISIBLE,
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `PCIU`.`Comunicado`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `PCIU`.`Comunicado` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `titulo` VARCHAR(150) NOT NULL,
-  `corpo` VARCHAR(3000) NOT NULL,
-  `horario` DATETIME NOT NULL,
-  `turma_id` INT NOT NULL,
-  `autor_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_Comunicado_Turma1_idx` (`turma_id` ASC) VISIBLE,
-  INDEX `fk_Comunicado_Usuário1_idx` (`autor_id` ASC) VISIBLE,
-  CONSTRAINT `fk_Comunicado_Turma1`
-    FOREIGN KEY (`turma_id`)
-    REFERENCES `PCIU`.`Turma` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_Comunicado_Usuário1`
-    FOREIGN KEY (`autor_id`)
-    REFERENCES `PCIU`.`Usuario` (`matricula`)
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `PCIU`.`Comentario`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `PCIU`.`Comentario` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `corpo` VARCHAR(1000) NOT NULL,
-  `horario` DATETIME NOT NULL,
-  `comunicado_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `comunicado_id`),
-  INDEX `fk_Comentário_Comunicado1_idx` (`comunicado_id` ASC) VISIBLE,
-  CONSTRAINT `fk_Comentário_Comunicado1`
-    FOREIGN KEY (`comunicado_id`)
-    REFERENCES `PCIU`.`Comunicado` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `PCIU`.`Comentario_Usuario`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `PCIU`.`Comentario_Usuario` (
-  `comentario_id` INT NOT NULL,
-  `usuario_id` INT NOT NULL,
-  PRIMARY KEY (`comentario_id`, `usuario_id`),
-  INDEX `fk_Comentário_has_Usuário_Usuário1_idx` (`usuario_id` ASC) VISIBLE,
-  INDEX `fk_Comentário_has_Usuário_Comentário1_idx` (`comentario_id` ASC) VISIBLE,
-  CONSTRAINT `fk_Comentário_has_Usuário_Comentário1`
-    FOREIGN KEY (`comentario_id`)
-    REFERENCES `PCIU`.`Comentario` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_Comentário_has_Usuário_Usuário1`
-    FOREIGN KEY (`usuario_id`)
-    REFERENCES `PCIU`.`Usuario` (`matricula`)
-    ON DELETE RESTRICT
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
 -- Table `PCIU`.`Turma_Usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `PCIU`.`Turma_Usuario` (
@@ -142,6 +119,29 @@ CREATE TABLE IF NOT EXISTS `PCIU`.`Turma_Usuario` (
     REFERENCES `PCIU`.`Usuario` (`matricula`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `PCIU`.`Turma_Comunicado`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PCIU`.`Turma_Comunicado` (
+  `turma_id` INT NOT NULL,
+  `comunicado_id` INT NOT NULL,
+  PRIMARY KEY (`turma_id`, `comunicado_id`),
+  INDEX `fk_Comunicado_has_Turma_Turma1_idx` (`turma_id` ASC) VISIBLE,
+  INDEX `fk_Comunicado_has_Turma_Comunicado1_idx` (`comunicado_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Comunicado_has_Turma_Comunicado1`
+    FOREIGN KEY (`comunicado_id`)
+    REFERENCES `PCIU`.`Comunicado` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Comunicado_has_Turma_Turma1`
+    FOREIGN KEY (`turma_id`)
+    REFERENCES `PCIU`.`Turma` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 

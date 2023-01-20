@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
   root "comunicado#index"
-  
-  # get 'comunicado/index'
+
   get 'comunicado/new'
-  post 'comunicado', to: 'comunicado#create'
+  post 'novo-comunicado', to: 'comunicado#create'
   get 'criar-comunicado', to: 'comunicado#new'
-  
-  #get 'curso/index'
-  #get 'curso/show'
-  
+  delete 'excluir_comunicado', to: 'comunicado#destroy'
+  get 'comunicado/:id', to: 'comunicado#show', as: 'comunicado'
+
+  post 'novo-comentario', to: 'comentario#create'
+  delete 'excluir-comentario', to: 'comentario#destroy'
+
   devise_for :usuario
-  
-  # root "pciu#home"
+
 end

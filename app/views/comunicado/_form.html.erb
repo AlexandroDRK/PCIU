@@ -1,24 +1,39 @@
-<%= form_with(model: @comunicado, url: comunicado_path) do |form| %>
-    <% if @comunicado.errors.any? %>
-    <div class="alert alert-danger">
-        <% @comunicado.errors.full_messages.each do |message| %>
-            <div><%= message %></div>
+<div class="row container">
+    <div class="col-sm-4 text-center">
+    <h4><%= link_to "Meus Comunicados", root_path, class: "nav-link mb-3 border border-dark border-opacity-50 rounded-pill p-3 m-2" %></h4>
+    <% if current_usuario.tipo == 'Professor' %>
+        <h4><%= link_to "Criar Comunicado", criar_comunicado_path, class: "nav-link text-white mb-3 bg-dark rounded-pill p-3 m-2 shadow-sm"%></h4>
+    <% end %>
+    </div>
+    <div class="col-sm-8">
+        <h1 class="mb-3 fw-bold">Novo Comunicado</h1>
+        <%= form_with(model: @comunicado, url: novo_comunicado_path) do |form| %>
+            <% if @comunicado.errors.any? %>
+            <div class="alert alert-danger">
+                <% @comunicado.errors.full_messages.each do |message| %>
+                    <div><%= message %></div>
+                <% end %>
+            </div>
+            <% end %>
+            <div class="mb-4">
+                <%= form.text_field :titulo, class: "form-control border border-dark border-opacity-50 p-2", placeholder: "Insira um título..." %>
+            </div>
+            <div class="mb-4">
+                <h5><%= form.label :corpo, "O que deseja comunicar?", class: 'mb-2' %></h5>
+                <%= form.text_area :corpo, class: "form-control border border-dark border-opacity-50", size: "70x8" %>
+            </div>
+            <div class=" mb-3 form-group">
+                <h5><%= form.label "Para qual turma?", class: 'mb-2' %></h5>
+                <%= form.collection_check_boxes(:turma_ids, current_usuario.turmas, :id, :nome,include_hidden: false) do |b|%>
+                    <div class="fw-semibold mb-2">
+                        <%= b.check_box %>  <%= b.label%>
+                    </div>
+                <% end %>
+            </div>
+            <br>
+            <div class="mb-3 btn-lg">
+                <%= form.submit "Criar", class: "btn btn-dark px-5 fw-bold"%>
+            </div>
         <% end %>
     </div>
-    <% end %>
-    <div class="mb-3">
-        <h3><%= form.label :titulo %></h3>
-        <%= form.text_field :titulo, class: "form-control" %>
-    </div>
-    <div class="mb-3">
-        <h3><%= form.label :corpo %></h3>
-        <%= form.text_area :corpo, class: "form-control" %>
-    </div>
-    <div class=" mb-3 form-group">
-        <h3><%= form.label :turma_id %></h3>
-        <%= form.collection_select :turma_id, Turma.all, :id, :nome, class: "form-control"%>
-    </div>
-    <div class="mb-3">
-        <%= form.submit "Criar", class: "btn btn-dark"%>
-    </div>
-<% end %>
+</div>
