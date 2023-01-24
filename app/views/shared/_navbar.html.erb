@@ -1,5 +1,5 @@
 <nav class="navbar bg-body-tertiary">
-  <div class="container-fluid m-4">
+  <div class="container-fluid m-4 justifyc-content-between">
     <a class="navbar-brand fs-1 fw-bold" href="/">
     PCIU
     <% if current_usuario %>
@@ -8,8 +8,12 @@
       <% else %>
         <span class="fs-3 fw-normal">Aluno</span>
       <% end %>
+      <p class="fs-5 fw-light mt-1"> <%= Curso.find(current_usuario.turmas.last.curso_id).nome %></p>
     </a>
-    <%= button_to "Sair", destroy_usuario_session_path, class: "btn btn-dark", method: :delete %>
+    <span class="text-end">
+      <p class="fs-5 fw-light mb-2">Bem vindo, <span class="fw-semibold"><%= current_usuario.nome %></span>!</p>
+      <%= button_to "Sair", destroy_usuario_session_path, class: "btn btn-dark px-3", method: :delete %>
+    </span>
     <% end %>
   </div>
 </nav>

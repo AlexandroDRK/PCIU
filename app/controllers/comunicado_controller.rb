@@ -22,6 +22,7 @@ class ComunicadoController < ApplicationController
 
   def create
     @usuario = Usuario.find_by(matricula: current_usuario)
+    
     if @usuario.tipo == "Professor" 
       @usuario = Usuario.find_by(matricula: current_usuario)
       @comunicado = Comunicado.new(comunicado_params)
