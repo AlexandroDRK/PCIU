@@ -14,7 +14,6 @@
                             <h3 class= "card-tittle fw-bold"><%= comunicado.titulo %></h3>
                             <p class="card-text text-dark"><%= comunicado.corpo %></p>
                         </div>
-                        <p> <%= comunicado.horario.strftime("%d/%m/%Y às %Hh%M") %> </p>
                     </div>
                 </a>
                 <div class="fw-semibold row mt-4 justify-content-between px-4">
@@ -24,8 +23,9 @@
                         <% turma = Turma.joins(:comunicado, :usuario).where(comunicado: {id: comunicado.id}, usuario: {matricula: current_usuario.matricula}).pluck(:nome)%>
                     <% end %>
                     <div class="col-auto mt-2">
+                            <span class="bg-dark text-white px-3 py-2 rounded-pill"><%= comunicado.horario.strftime("%d/%m/%Y às %Hh%M") %></span>
                             <% turma.each do |t| %>
-                                <span class="bg-dark text-white px-3 py-2 rounded-pill"><%= t %></span>
+                                <span class="px-3 py-2 border border-dark border-opacity-50 rounded-pill"><%= t %></span>
                             <% end %>
                     </div>
                     <% if current_usuario.tipo == 'Professor' %>
