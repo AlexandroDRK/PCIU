@@ -1,24 +1,32 @@
-# README
+# PCIU
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Uma plataforma criada do zero na disciplina de Engenharia de Software 2, com o intuito de ser um meio de comunicação entre alunos e professores de uma universidade.
 
-Things you may want to cover:
+Tecnologias Utilizadas:
 
-* Ruby version
+* Ruby 3.1.2
 
-* System dependencies
+* Rails 7.0.4
 
-* Configuration
+* MySQL 8.0.32
 
-* Database creation
+* Sistema operacional: Ubuntu 22.10
 
-* Database initialization
+### Configuracão:
+<p>
 
-* How to run the test suite
+> Criacão do banco de dados:
 
-* Services (job queues, cache servers, search engines, etc.)
+` $rake db:create`
 
-* Deployment instructions
+> Inicilizacão do banco de dados:
 
-* ...
+` $rake db:schema:load`
+
+ > Preenchimento do banco de dados com dados iniciais:
+
+`$rake db:seed `
+
+> Inicalizacão do servidor:
+
+`$ rails s`
