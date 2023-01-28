@@ -13,8 +13,8 @@
                         <div class="card-body">
                             <h3 class= "card-tittle fw-bold"><%= comunicado.titulo %></h3>
                             <p class="card-text text-dark"><%= comunicado.corpo %></p>
-                            
                         </div>
+                        <p> <%= comunicado.horario.strftime("%d/%m/%Y às %Hh%M") %> </p>
                     </div>
                 </a>
                 <div class="fw-semibold row mt-4 justify-content-between px-4">

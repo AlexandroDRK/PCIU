@@ -43,7 +43,7 @@ class ComunicadoController < ApplicationController
   def destroy
     @comunicado = Comunicado.find(params[:id])
     @comunicado.destroy
-    flash[:notice] = "Comunicado excluido com sucesso."
+    flash[:notice] = "Comunicado excluído com sucesso."
     redirect_to root_url
   end
 

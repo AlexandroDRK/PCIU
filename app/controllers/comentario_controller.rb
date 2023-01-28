@@ -37,7 +37,7 @@ class ComentarioController < ApplicationController
   def destroy
     @comentario = Comentario.find(params[:id])
     @comentario.destroy
-    flash[:notice] = "Comentário excluido com sucesso."
+    flash[:notice] = "Comentário excluído com sucesso."
     redirect_to comunicado_path(@comentario.comunicado_id)
   end
 
