@@ -4,7 +4,7 @@ class Usuario < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :rememberable, :validatable, authentication_keys: [:email ]
+  devise :database_authenticatable, :rememberable, :validatable, :recoverable, authentication_keys: [:email ]
 
   #associations:
   has_many :comunicados

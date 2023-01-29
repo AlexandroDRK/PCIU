@@ -20,22 +20,22 @@ en:
       confirmation_instructions:
         subject: "Confirmation instructions"
       reset_password_instructions:
-        subject: "Reset password instructions"
+        subject: "Instruções de redefinição  de senha"
       unlock_instructions:
         subject: "Unlock instructions"
       email_changed:
         subject: "Email Changed"
       password_change:
-        subject: "Password Changed"
+        subject: "Senha  alterada"
     omniauth_callbacks:
       failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
       success: "Successfully authenticated from %{kind} account."
     passwords:
       no_token: "You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided."
-      send_instructions: "You will receive an email with instructions on how to reset your password in a few minutes."
+      send_instructions: "Você receberá um e-mail com instruções sobre como redefinir sua senha em alguns minutos."
       send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
-      updated: "Your password has been changed successfully. You are now signed in."
-      updated_not_active: "Your password has been changed successfully."
+      updated: "Sua senha foi alterada com sucesso. Agora você está conectado."
+      updated_not_active: "Sua senha foi alterada com sucesso."
     registrations:
       destroyed: "Bye! Your account has been successfully cancelled. We hope to see you again soon."
       signed_up: "Welcome! You have signed up successfully."
@@ -58,8 +58,27 @@ en:
       already_confirmed: "was already confirmed, please try signing in"
       confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "has expired, please request a new one"
-      not_found: "Não encontrado"
+      not_found: "não encontrado"
       not_locked: "was not locked"
       not_saved:
-        one: "1 error prohibited this %{resource} from being saved:"
-        other: "%{count} errors prohibited this %{resource} from being saved:"
+        one: "1 erro impediu %{resource} de ser salvo:"
+        other: "%{count} erros impediram esses %{resource} de serem salvos:"
+  activerecord:
+    #Overriding attribute names in devise messages:
+    attributes:
+      usuario:
+        password: "Senha"
+        password_confirmation: "Confirmação da senha"
+    #Overriding devise messages:
+    errors:
+      models:
+          usuario:
+            attributes:
+              email:
+                blank: "precisa ser preenchido."
+              password:
+                blank: "precisa ser preenchida."
+              password_confirmation:
+                confirmation: "não corresponde a senha"
+
+
