@@ -5,7 +5,7 @@ class ComunicadoController < ApplicationController
     if @usuario.tipo == "Professor"
       @comunicados = Comunicado.where(autor_id: @usuario.matricula)   
     else
-      @comunicados = Comunicado.joins(:turma).where(turma: {id: @usuario.turmas.ids}).all
+      @comunicados = Comunicado.joins(:turma).where(turma: {id: @usuario.turmas.ids}).distinct()
     end
 
   end
