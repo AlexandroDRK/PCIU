@@ -1,16 +1,23 @@
-<h2>Forgot your password?</h2>
+<div class="vh-100 wh-100 d-flex flex-column align-items-center justify-content-center">
+    <div class="border border-dark border-opacity-50 rounded-5 p-5 text-center">
+      <h1 class="fw-bold">PCIU</h1>
+      <h5 class="text-secondary">LOGIN</h5>
+      <p>Esqueceu sua senha?</p>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+        <div class="field text-start mb-3">
+          <%= f.label :email, class: 'fs-6 fw-semibold ms-2 mb-2' %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control mt-1 rounded-pill border border-dark border-opacity-50' %>
+        </div>
 
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
+        <div class="actions">
+          <%= f.submit "Enviar email de recuperacão de senha" , class: "btn btn-dark px-5 fw-bold" %>
+        </div>
+      <% end %>
+      <br>
+      <%= render "devise/shared/links" %>
 
-<%= render "devise/shared/links" %>
+    </div>
+</div>

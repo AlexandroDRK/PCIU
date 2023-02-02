@@ -31,3 +31,16 @@
 
 en:
   hello: "Hello world"
+
+  activerecord:
+      models: 
+        comunicado: "Comunicado"
+      attributes:
+        comunicado:
+          turma_ids: "Turma"
+      errors:
+        models:
+          comunicado:
+            attributes:
+              turma_ids:
+                blank: "precisa ser preenchido."

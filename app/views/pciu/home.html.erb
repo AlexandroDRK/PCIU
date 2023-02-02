@@ -1,9 +1,0 @@
-<% if usuario_signed_in? %> 
- <div> Welcome <%= current_usuario.email %> </div> 
-  <%= button_to "Sign out", destroy_usuario_session_path, method: :delete %> 
-<% else %>
-  <%= button_to "Sign in", new_usuario_session_path %> 
-<% end %>
-
-<h1>Pciu#home</h1>
-<p>Find me in app/views/pciu/home.html.erb</p>

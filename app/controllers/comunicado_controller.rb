@@ -5,7 +5,7 @@ class ComunicadoController < ApplicationController
     if @usuario.tipo == "Professor"
       @comunicados = Comunicado.where(autor_id: @usuario.matricula)   
     else
-      @comunicados = Comunicado.joins(:turma).where(turma: {id: @usuario.turmas.ids}).all
+      @comunicados = Comunicado.joins(:turma).where(turma: {id: @usuario.turmas.ids}).distinct()
     end
 
   end
@@ -43,7 +43,7 @@ class ComunicadoController < ApplicationController
   def destroy
     @comunicado = Comunicado.find(params[:id])
     @comunicado.destroy
-    flash[:notice] = "Comunicado excluido com sucesso."
+    flash[:notice] = "Comunicado excluído com sucesso."
     redirect_to root_url
   end
 

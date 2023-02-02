@@ -19,12 +19,16 @@
                 <div class='row g-3 align-items-start border-bottom pb-3 border-dark border-opacity-50'>
                     <% u = Usuario.find(comentario.usuario_id)%>
                     <% if current_usuario.id == comentario.usuario_id %>
-                        <span class="fw-bolder col-2 pt-1"><%= u.nome %></span>
-                        <span  class="col-8 pt-1"><%= comentario.corpo %></span>
-                        <span class='col-2'><%= button_to "Excluir?", excluir_comentario_path(id: comentario.id), method: :delete, class:"btn btn-default fw-semibold text-danger mx-2"%></span>
+                        <span class="text-start fw-bolder pt-1"><%= u.nome %></span>
+                        <p class="text-break"><%= comentario.corpo %></p>
+                        <div class="row justify-content-between mt-2 ps-2">
+                            <span class="col-auto mt-2"><%= comentario.horario.strftime("%d/%m/%Y às %Hh%M") %></span>
+                            <span class='col-2'><%= button_to "Excluir?", excluir_comentario_path(id: comentario.id), method: :delete, class:"btn btn-default fw-semibold text-danger mx-2"%></span>
+                        </div>
                     <% else %>
-                        <span class="fw-semibold col-2 pt-1 text-secondary"><%= u.nome %></span>
-                        <span  class="col-8 pt-1 text-secondary"><%= comentario.corpo %></span>
+                        <span class="text-start fw-semibold pt-1 text-secondary"><%= u.nome %></span>
+                        <p class="text-break pt-1 text-secondary"><%= comentario.corpo %></p>
+                        <span class="mt-2 text-secondary"><%= comentario.horario.strftime("%d/%m/%Y às %Hh%M") %></span>
                     <% end %>
                 </div>
                 <br>

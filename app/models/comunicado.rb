@@ -10,4 +10,5 @@ class Comunicado < ApplicationRecord
   validates_associated :turma
   validates :titulo, presence: {message: "precisa ser preenchido."}
   validates :corpo, presence: {message: "precisa ser preenchido."}
+  validates :turma_ids, presence: {message: "precisa ser preenchido."}
 end

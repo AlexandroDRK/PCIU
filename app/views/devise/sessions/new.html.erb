@@ -1,16 +1,16 @@
 <div class="vh-100 wh-100 d-flex flex-column align-items-center justify-content-center">
-  <div class="border border-darker-subtle border-2 rounded-5 p-5 text-center">
+  <div class="border border-dark border-opacity-50 rounded-5 p-5 text-center">
     <h1 class="fw-bold">PCIU</h1>
     <h5 class="text-secondary">LOGIN</h5>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field mb-3 text-start">
-        <h5><%= f.label :email %></h5>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control rounded-pill border border-2' %>
+        <%= f.label :email, class: 'fs-6 fw-semibold ms-2 mb-2' %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control rounded-pill border border-dark border-opacity-50 px-3' %>
       </div>
   
       <div class="field mb-3 text-start">
-        <h5><%= f.label :password, 'Senha' %></h5>
-        <%= f.password_field :password, autocomplete: "current-password", class: 'form-control rounded-pill border border-2' %>
+        <%= f.label :password, 'Senha', class: 'fs-6 fw-semibold ms-2 mb-2' %>
+        <%= f.password_field :password, autocomplete: "current-password", class: 'form-control rounded-pill border border-dark border-opacity-50 px-3' %>
       </div>
   
       <% if devise_mapping.rememberable? %>
