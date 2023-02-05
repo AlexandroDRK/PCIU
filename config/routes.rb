@@ -4,12 +4,17 @@ Rails.application.routes.draw do
   get 'comunicado/new'
   post 'novo-comunicado', to: 'comunicado#create'
   get 'criar-comunicado', to: 'comunicado#new'
-  delete 'excluir_comunicado', to: 'comunicado#destroy'
   get 'comunicado/:id', to: 'comunicado#show', as: 'comunicado'
+  delete 'excluir_comunicado', to: 'comunicado#destroy'
 
-  post 'novo-comentario', to: 'comentario#create'
+  #nested routes for comentarios:
+  resources :comunicado do
+    resources :comentario
+  end
+
+  #post route needed to comentario create form:
+  post 'comentario', to: 'comentario#create'
   delete 'excluir-comentario', to: 'comentario#destroy'
 
   devise_for :usuario
-
 end

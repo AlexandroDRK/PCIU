@@ -7,7 +7,6 @@ class ComunicadoController < ApplicationController
     else
       @comunicados = Comunicado.joins(:turma).where(turma: {id: @usuario.turmas.ids}).distinct()
     end
-
   end
 
   def show
@@ -48,10 +47,8 @@ class ComunicadoController < ApplicationController
   end
 
   private
-
+  
   def comunicado_params
     params.require(:comunicado).permit(:titulo, :corpo, :horario,  :autor_id,turma_ids: [])
   end
-  
-  
 end
